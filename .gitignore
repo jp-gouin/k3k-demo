@@ -1,0 +1,5 @@
+*-kubeconfig.yaml
+ignore/*
+k3kcli
+k3k/*
+infra/*

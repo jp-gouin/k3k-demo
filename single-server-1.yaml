@@ -1,0 +1,19 @@
+apiVersion: k3k.io/v1alpha1
+kind: Cluster
+metadata:
+  name: mycluster1
+  namespace: demo-1
+spec:
+  agents: 0
+  expose:
+    nodePort:
+      enabled: true
+  mode: shared
+  persistence:
+    storageRequestSize: 1G
+    type: ephermal
+  servers: 1
+  serviceCIDR: 10.43.0.0/16
+  tlsSANs:
+  - 3.81.87.166.sslip.io
+  version: v1.26.1-k3s1
