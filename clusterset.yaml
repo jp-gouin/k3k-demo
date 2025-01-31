@@ -2,5 +2,5 @@ apiVersion: k3k.io/v1alpha1
 kind: ClusterSet
 metadata:
   name: clusterset-example
-  namespace: demo-1
+  namespace: demo-2
 spec: {}

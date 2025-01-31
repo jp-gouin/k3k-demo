@@ -1,15 +1,17 @@
 apiVersion: k3k.io/v1alpha1
 kind: Cluster
 metadata:
-  name: mycluster1
+  name: myclusteringress
   namespace: demo-1
 spec:
-  expose:
-    nodePort:
-      enabled: true
   agents: 0
+  expose:
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
   mode: shared
   persistence:
+    storageRequestSize: 1G
     type: ephermal
   servers: 1
   serviceCIDR: 10.43.0.0/16
