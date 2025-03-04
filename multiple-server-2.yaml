@@ -12,8 +12,8 @@ spec:
   persistence:
     type: dynamic
     storageClassName: local-path
-  servers: 1
+  servers: 3
   serviceCIDR: 10.43.0.0/16
   tlsSANs:
-  - 54.163.111.60.sslip.io
-  version: v1.30.5-k3s1
+  - 3.92.145.113.sslip.io
+  version: v1.32.1-k3s1

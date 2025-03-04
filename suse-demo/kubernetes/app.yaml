@@ -67,7 +67,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: suseapp.3.81.87.166.sslip.io
+  - host: suseapp.3.92.22.246.sslip.io
     http:
       paths:
       - path: /

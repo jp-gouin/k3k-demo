@@ -2,19 +2,22 @@ apiVersion: k3k.io/v1alpha1
 kind: Cluster
 metadata:
   name: myclusteringress
-  namespace: demo-1
+  namespace: demo-3
 spec:
   agents: 0
   expose:
     ingress:
-      enabled: true
-      ingressClassName: "nginx"
+      ingressClassName: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/backend-protocol: "true"
+        nginx.ingress.kubernetes.io/ssl-redirect: "HTTPS"
   mode: shared
   persistence:
     storageRequestSize: 1G
-    type: ephermal
+    type: ephemeral
   servers: 1
   serviceCIDR: 10.43.0.0/16
   tlsSANs:
-  - 3.81.87.166.sslip.io
+  - 3.84.73.172.sslip.io
   version: v1.26.1-k3s1

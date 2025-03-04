@@ -37,54 +37,48 @@ metadata:
 EOF
 ```
 
-## Deploy the chart
-```
-helm install -n k3k-system --create-namespace k3k k3k
-helm install -n k3k-system --create-namespace k3k --devel k3k/k3k
-
-helm install -n k3k-system --create-namespace k3k --set image.repository=jpgouin/k3k --set image.tag=f6fe819-amd64 --set sharedAgent.image.repository=jpgouin/k3k --set sharedAgent.image.tag=f6fe819-amd64-kubelet --set image.pullPolicy=Always --devel k3k/k3k
-```
+## Deploy the shared mode cluster
+1. add name
+2. click shared
 
 ## Connect to the cluster
-```
-export KUBECONFIG=$(pwd)/kube_config_workload.yaml
-k create ns demo-1
-k apply -f single-server-1.yaml
-k get po -n demo-1 -w
-```
 
-Generate Kubeconfig
-```
-./k3kcli kubeconfig generate  --namespace demo-1 --name mycluster1
-```
+1. Copy Kubeconfig
+2. Create `mycluster1-kubeconfig.yaml` file
+3. Paste kubeconfig
+4. export KUBECONFIG=/home/jpgouin/sandbox/virtual_cluster/demo/mycluster1-kubeconfig.yaml
+5. `k get nodes`
+
 
 ## Deploy App
 Deploy Nginx
 ```
-export KUBECONFIG=$(pwd)/mycluster1-kubeconfig.yaml
 k apply -f  https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/baremetal/deploy.yaml
 ```
 
+View App content
+`cat suse-demo/kubernetes/app.yaml`
+
+Deploy App
 ```
 k apply -f suse-demo/kubernetes/app.yaml
 ```
 
 Get nodeport and access the app
 ```
-k get svc -n demo-2 
-http://suseapp.18.209.95.12.sslip.io:30368/
+k get svc -A
+http://suseapp.3.92.22.246.sslip.io:30250/
 ```
 
 ## Install kubewarden-crds
 
 List CRDs in host -> no kubewarden crds
 ```
-export KUBECONFIG=$(pwd)/kube_config_workload.yaml
-k get crd
+k get crd -w
 ```
 
+Install Kubewarden on the virtual cluster
 ```
-export KUBECONFIG=$(pwd)/mycluster-kubeconfig.yaml
 helm install --wait -n kubewarden --create-namespace kubewarden-crds kubewarden/kubewarden-crds
 helm install --wait -n kubewarden kubewarden-controller kubewarden/kubewarden-controller
 ```
@@ -94,24 +88,18 @@ List CRDs -> kubewarden crds in k3k cluster
 k get crd
 ```
 
-List CRDs in host -> no kubewarden crds
-```
-export KUBECONFIG=$(pwd)/kube_config_workload.yaml
-k get crd
-
-```
-
 ## Deploy another cluster
 
-```
-k create demo-2
-./k3kcli cluster create  --namespace demo-2 --name mycluster2 --service-cidr "10.43.0.0/16"
-```
+1. add name
+2. click virtual
+3. change network settings
+   • clusterCIDR: 10.52.0.0/16  
+   • serviceCIDR: 10.53.0.0/16
 
 ## Showcase CRD isolation
 
 ```
-export KUBECONFIG=$(pwd)/mycluster2-kubeconfig.yaml
+export KUBECONFIG=/home/jpgouin/sandbox/virtual_cluster/demo/mycluster2-kubeconfig.yaml
 helm install --wait -n kubewarden --version 1.11.0 --create-namespace kubewarden-crds kubewarden/kubewarden-crds
 helm install --wait -n kubewarden --version 3.2.0 kubewarden-controller kubewarden/kubewarden-controller
 ```

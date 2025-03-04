@@ -1,8 +1,8 @@
 apiVersion: k3k.io/v1alpha1
 kind: Cluster
 metadata:
-  name: mycluster1
-  namespace: demo-1
+  name: mycluster2
+  namespace: demo-2
 spec:
   expose:
     nodePort:
@@ -12,8 +12,8 @@ spec:
   persistence:
     type: dynamic
     storageClassName: local-path
-  servers: 1
+  servers: 3
   serviceCIDR: 10.43.0.0/16
   tlsSANs:
-  - 54.163.111.60.sslip.io
+  - 3.87.157.111.sslip.io
   version: v1.30.5-k3s1
