@@ -1,0 +1,20 @@
+apiVersion: scheduling.k8s.io/v1
+description: Priority class used by pods critical to rancher's functionality.
+kind: PriorityClass
+metadata:
+  annotations:
+    meta.helm.sh/release-name: rancher
+    meta.helm.sh/release-namespace: cattle-system
+  creationTimestamp: "2025-03-12T14:43:22Z"
+  generation: 1
+  labels:
+    app: rancher
+    app.kubernetes.io/managed-by: Helm
+    chart: rancher-2.10.3
+    heritage: Helm
+    release: rancher
+  name: rancher-critical
+  resourceVersion: "2019515"
+  uid: 1d87e6f6-38cd-49f2-805c-cc341095b414
+preemptionPolicy: PreemptLowerPriority
+value: 1000000000
