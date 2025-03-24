@@ -29,6 +29,7 @@ resources:
 ```
 
 Expected result:
+- Pod is scheduled
 
 2. Run a pod with:
 ```
