@@ -28,25 +28,26 @@ resources:
         memory: 200Mi
 ```
 
-Expected result:
+Result:
 - Pod is scheduled
 
 2. Run a pod with:
 ```
 resources:
     requests:
-        cpu: 1m
+        cpu: 1
         memory: 1Gi
 ```
 
-Expected result: 
+Result: 
 - Pod is not scheduled as it violate the limitRange, information is available from the `virtual cluster`
 ```
-Pod "nginx2-default-sharedm-cluster1-6e67696e78322b64656661756-a62f8" is invalid: spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi Pod "nginx2-default-sharedm-cluster1-6e67696e78322b64656661756-a62f8" is invalid: spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi Pod "nginx2-default-sharedm-cluster1-6e67696e78322b64656661756-a62f8" is invalid: spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi Pod "nginx2-default-sharedm-cluster1-6e67696e78322b64656661756-a62f8" is invalid: spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi Pod "nginx2-default-sharedm-cluster1-6e67696e78322b64656661756-a62f8" is invalid: spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi provider timed out
+Pod "nginx-2-default-sharedm-cluster1-6e67696e782d322b64656661-5fe3c" is invalid: [spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 200m, spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi] Pod "nginx-2-default-sharedm-cluster1-6e67696e782d322b64656661-5fe3c" is invalid: [spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 200m, spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi] Pod "nginx-2-default-sharedm-cluster1-6e67696e782d322b64656661-5fe3c" is invalid: [spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi, spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 200m] Pod "nginx-2-default-sharedm-cluster1-6e67696e782d322b64656661-5fe3c" is invalid: [spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 200m, spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi] Pod "nginx-2-default-sharedm-cluster1-6e67696e782d322b64656661-5fe3c" is invalid: [spec.containers[0].resources.requests: Invalid value: "1Gi": must be less than or equal to memory limit of 200Mi, spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 200m] provider timed out
 ```
 
 3. Run a pod without limit/request
-Expected result:
+
+Result:
 - Pod is scheduled and the default limit/request defined in the limitRange is applied
 
 On the `virtual cluster` **no information is available**
@@ -61,9 +62,9 @@ resources:
         memory: 100Mi
 ```
 
-1. Run another pod wihthout limit/request
+4. Run another pod wihthout limit/request
 
-Expected result:
+Result:
 - Pod is not scheduled as it violate the maximun quota available
   The default `default` limit in the limitRange will max out the remaining space available `limits.memory: 570Mi/600Mi`
 ```
