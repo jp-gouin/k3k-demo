@@ -25,7 +25,7 @@ kubectl create namespace cattle-system
 ```
 2. Generate a certificate (or deploy cert-manager)
 ```
-openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes -subj "/CN=3.85.127.144.sslip.io"
+openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes -subj "/CN=x.x.x.x.sslip.io"
 kubectl create secret tls tls-rancher-ingress \
   --namespace cattle-system \
   --key tls.key \
@@ -40,7 +40,7 @@ Edit the nginx deployment to add `--watch-ingress-without-class=true` flag
 ```
 helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
-  --set hostname=vcrancher.3.85.127.144.sslip.io \
+  --set hostname=vcrancher.x.x.x.x.sslip.io \
   --set bootstrapPassword=admin \
   --set ingress.tls.source=secret --set ingress.tls.secretName=tls-rancher-ingress
 ```
