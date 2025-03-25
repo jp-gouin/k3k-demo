@@ -47,4 +47,4 @@ helm install rancher rancher-stable/rancher \
 ## Tweak the ingress
 Add the IngressClassName to the ingress or configure your ingress controller to work without
 
-To configure the NGINX Ingress Controller to watch Ingress resources without an ingressClassName, you need to ensure the controller is configured to handle Ingress resources that don't specify a class, either by setting the default controller class or by using the --watch-ingress-without-class flag. 
+To configure the NGINX Ingress Controller to watch Ingress resources without an ingressClassName, you need to ensure the controller is configured to handle Ingress resources that don't specify a class, either by setting the default controller class or by using the `--watch-ingress-without-class` flag. 
