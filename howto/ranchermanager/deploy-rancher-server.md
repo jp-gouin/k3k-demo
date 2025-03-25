@@ -25,7 +25,7 @@ kubectl create namespace cattle-system
 ```
 2. Generate a certificate (or deploy cert-manager)
 ```
-openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes -subj "/CN=x.x.x.x.sslip.io"
+openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes -subj "/CN=vcrancher.x.x.x.x.sslip.io"
 kubectl create secret tls tls-rancher-ingress \
   --namespace cattle-system \
   --key tls.key \
