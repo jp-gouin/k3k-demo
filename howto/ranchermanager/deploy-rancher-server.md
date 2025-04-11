@@ -25,7 +25,7 @@ kubectl create namespace cattle-system
 ```
 2. Generate a certificate (or deploy cert-manager)
 ```
-openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes -subj "/CN=3.85.127.144.sslip.io"
+openssl req -x509 -newkey rsa:4096 -keyout tls.key -out tls.crt -days 365 -nodes -subj "/CN=vcrancher.x.x.x.x.sslip.io"
 kubectl create secret tls tls-rancher-ingress \
   --namespace cattle-system \
   --key tls.key \
@@ -40,11 +40,11 @@ Edit the nginx deployment to add `--watch-ingress-without-class=true` flag
 ```
 helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
-  --set hostname=vcrancher.3.85.127.144.sslip.io \
+  --set hostname=vcrancher.x.x.x.x.sslip.io \
   --set bootstrapPassword=admin \
   --set ingress.tls.source=secret --set ingress.tls.secretName=tls-rancher-ingress
 ```
 ## Tweak the ingress
 Add the IngressClassName to the ingress or configure your ingress controller to work without
 
-To configure the NGINX Ingress Controller to watch Ingress resources without an ingressClassName, you need to ensure the controller is configured to handle Ingress resources that don't specify a class, either by setting the default controller class or by using the --watch-ingress-without-class flag. 
+To configure the NGINX Ingress Controller to watch Ingress resources without an ingressClassName, you need to ensure the controller is configured to handle Ingress resources that don't specify a class, either by setting the default controller class or by using the `--watch-ingress-without-class` flag. 
